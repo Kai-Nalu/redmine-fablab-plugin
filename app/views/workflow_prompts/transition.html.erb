@@ -1,0 +1,23 @@
+<h2><%= @workflow_prompt.label %> for <%= @issue.subject %> </h2>
+
+<%= form_for @issue, :html => {:id => 'transition_form'} do |f| %>
+    <% @workflow_prompt.workflow_prompt_required_fields.each do |field| %>
+        <% @issue.custom_values.where(custom_field_id: field.required_field).each do |cv| %>
+            <%= custom_field_tag_with_label :issue, cv %>
+        <% end %>
+    <% end %>
+    <%= f.hidden_field :status_id, :value => @workflow_prompt.end_status %>
+    <%= f.submit 'Submit' %> <%= link_to 'Cancel', issue_path(@issue.id) %>
+<% end %>
+
+<style>
+    #transition_form {
+        display: grid;
+        grid-template-columns: 100px 180px;
+        align-items: center;
+        column-gap: 7px;
+        row-gap: 5px;
+    }
+    #transition_form > label {text-align: right;}
+    #transition_form > div {text-align: right;}
+</style>

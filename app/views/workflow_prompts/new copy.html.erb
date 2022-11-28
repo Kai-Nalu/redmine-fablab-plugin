@@ -1,0 +1,45 @@
+<h2>Add Workflow Prompt</h2>
+
+<%= form_for @prompts, :html => {:id => 'workflow_prompt_form'} do |f| %>
+    <%= f.label :tracker, 'Tracker' %>
+    <%= f.select :tracker, @trackers.collect { |t| [t.name, t.id] } %>
+
+    <%= f.label :label, 'Button Label' %>
+    <%= f.text_field :label %>
+
+    <%= f.label :start_status, 'Starting Status' %>
+    <%= f.select :start_status, @issue_statuses.collect { |i| [i.name, i.id] } %>
+
+    <%= f.label :end_status, 'Destination Status' %>
+    <%= f.select :end_status, @issue_statuses.collect { |i| [i.name, i.id] } %>
+
+    <%= f.label :required_feilds, 'Required Fields' %>
+    <%= f.fields_for :workflow_prompt_required_fields do |wprf| %>
+    <div class='custom_fields_select'>
+        <%= wprf.collection_check_boxes :required_field, @custom_fields.order(:name), :id, :name do |c| %>
+            <div>
+                <%= c.check_box %>
+                <%= c.label %>
+            </div>
+        <% end %>
+    <% end %>
+    </div>
+    <%= f.submit 'Create' %>
+<% end %>
+
+<style>
+    #workflow_prompt_form {
+        display: grid;
+        grid-template-columns: 90px 180px;
+        align-items: center;
+        column-gap: 7px;
+        row-gap: 5px;
+    }
+    #workflow_prompt_form > label {text-align: right;}
+    .custom_fields_select {
+        display: flex;
+        flex-wrap: wrap;
+        border: 1px solid LightGray;
+        border-radius: 4px;
+    }
+</style>

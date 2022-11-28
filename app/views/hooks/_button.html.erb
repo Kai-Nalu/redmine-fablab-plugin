@@ -1,0 +1,5 @@
+<p>
+    <% workflow_prompts.where(tracker: @issue.tracker.id).where(start_status: @issue.status.id).each do |workflow_prompt| %>
+        <%= button_to workflow_prompt.label, transition_workflow_prompt_path(workflow_prompt.id), params: { issue_id: @issue.id }, method: :get, :class => 'workflow_prompt_button' %>
+    <% end %>
+</p>

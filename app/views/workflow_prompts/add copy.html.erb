@@ -1,0 +1,91 @@
+<h2>Add Workflow Prompt</h2>
+
+<%= form_with method: :post, model: @prompts do |f| %>
+    <%= f.label :tracker, 'Tracker' %>
+    <%= f.select :tracker, trackers.collect { |t| [t.name, t.id] } %>
+<% end %>
+
+/*<div class='container'>
+    <div>Tracker</div>
+    <select id='tracker'></select>
+
+    <div>Label</div>
+    <input type='text'>
+
+    <div>Start Status</div>
+    <select id='start_status'></select>
+
+    <div>End Status</div>
+    <select id='end_status'></select>
+
+    <div>Required Fields</div>
+    <div class='fieldSelector'>
+        <div class='fieldOption'>
+            <select class='fields'><option>One</option><option>Two</option><option>Three</option></select><input type='button' class='addField' value='+'>
+        </div>
+    </div>
+</div>
+    <p>
+        <input type='submit' value='Submit'>
+        <a>Cancel</a>
+    </p>
+
+<style>
+    .container {
+        display: grid;
+        grid-template-columns: 75px 180px;
+        align-items: center;
+        column-gap: 7px;
+        row-gap: 5px;
+    }
+    .container > div {text-align: right;}
+    input.addField {
+        margin-left: 5px;
+        cursor: pointer;
+        width: 24px;
+    }
+    select.fields {width: 151px;}
+</style>
+
+<%= javascript_tag do%>
+    $(document).ready(function(){
+        <% @trackers.each do |trackers| %>
+            $('select#tracker').append('<option><%= trackers.name %></option>');
+        <% end %>
+        <% @issue_statuses.each do |statuses| %>
+            $('select#start_status').append(`<option value="<%= statuses.position %>"><%= statuses.name %></option>`);
+            $('select#end_status').append(`<option value="<%= statuses.position %>"><%= statuses.name %></option>`);
+        <% end %>
+        cycle_select($('select#end_status'));
+        
+        $('select#start_status').change(function(){
+            $(`select#end_status > option.hidden`).show().attr('class', '');
+            $(`select#end_status > option[value="${$(this).val()}"]`).hide().attr('class', 'hidden');
+            if ($(this).val() == $('select#end_status').val()) { cycle_select($('select#end_status')); }
+        });
+        $('select#end_status').change(function(){
+            $(`select#start_status > option.hidden`).show().attr('class', '');
+            $(`select#start_status > option[value="${$(this).val()}"]`).hide().attr('class', 'hidden');
+            if ($(this).val() == $('select#start_status').val()) { cycle_select($('select#start_status')); }
+        });
+        
+        $('input.addField').click(function(){
+            if ($(this).val() == '+') { $(this).parent().clone(true).appendTo('div.fieldSelector'); }
+            if ($(this).val() == '-') { $(this).parent().remove(); }
+            $('input.addField').not($('input.addField').last()).val('-');
+        });
+    });
+
+    function cycle_select(myself) {
+        $(myself).val(String((Number($(myself).val()) % <%= @issue_statuses.length %>)+1));
+    }
+
+    function update_fields() {
+        $('select.fields').empty();
+        <% @custom_fields.each do |custom_fields| %>
+            <% custom_fields.trackers.each do |t| %>
+                <% if t.name ==
+            <% end %>
+        <% end %>
+    }
+<% end %>*/

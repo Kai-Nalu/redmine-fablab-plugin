@@ -1,0 +1,26 @@
+<div class='contextual'>
+    <%= link_to 'New workflow prompt', new_workflow_prompt_path, :class => 'icon icon-add' %>
+</div>
+
+<h2>Workflow Prompts</h2>
+
+<table class='list'>
+    <thead><tr>
+        <th>Workflow Prompt</th>
+        <th>Starting Status</th>
+        <th>Destination Status</th>
+        <th>Tracker</th>
+        <th></th>
+    </tr></thead>
+    <tbody>
+    <% @workflow_prompts.each do |workflow_prompt| %>
+    <tr>
+        <td class='name'><%= link_to workflow_prompt.label, edit_workflow_prompt_path(workflow_prompt.id) %></td>
+        <td><%= @issue_statuses.find(workflow_prompt.start_status).name %></td>
+        <td><%= @issue_statuses.find(workflow_prompt.end_status).name %></td>
+        <td><%= @trackers.find(workflow_prompt.tracker).name %></td>
+        <td class='buttons'><%= link_to 'Delete', workflow_prompt, method: :delete %></td>
+    </tr>
+    <% end %>
+    </tbody>
+</table>

@@ -1,0 +1,2 @@
+module WorkflowPromptsHelper
+end
